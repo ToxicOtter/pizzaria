@@ -1,0 +1,1 @@
+insert into cliente(email, cpf, nome, endereco_entrega, telefone) values ('luan.lima.lopes16@gmail.com', 000, 'Luan', 'avenida', 991);
