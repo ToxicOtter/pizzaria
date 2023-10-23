@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Página de Alunos</title>
+</head>
+
+<body>
+    <table>
+        <tbody>
+            <tr>
+                <td th:text="${produto.nome}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/salvarItem}" method="post">
+        <table class="table">
+            <thead class="table-primary">
+                <tr>
+                    <td>Id</td>
+                    <td>Nome</td>
+                    <td>Descrição</td>
+                    <td>Valor</td>
+                    <td>Quantidade</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr>
+                    <td><input type="text" name="id" id="id" th:value="${produto.id}"></td>
+                    <td th:text="${produto.nome}"></td>
+                    <td th:text="${produto.descricao}"></td>
+                    <td th:text="${produto.valor}"></td>
+                    <td><input type="number" name="qtd" id="qtd"></td>
+                    <td><input type="submit" value="Adicionar"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</body>
+
+</html>

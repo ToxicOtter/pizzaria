@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.pizzaria.pizza.model.Cliente;
 import com.pizzaria.pizza.model.Produto;
@@ -32,6 +34,7 @@ public class ClienteController {
         mAv.addObject("listaDeBebidas", produtoRepository.findByTipo("Bebida"));
         mAv.addObject("cliente", new Cliente());
         mAv.addObject("produto", new Produto());
+        mAv.addObject("itens", itens);
         return mAv;
     }
 
@@ -44,5 +47,28 @@ public class ClienteController {
         itens.add(pizza);
         System.out.println(itens);
         return "redirect:/home";
+    }
+
+        @GetMapping("/pizza")
+    public ModelAndView selecionarPizza() {
+        ModelAndView mAv = new ModelAndView("cliente");
+        mAv.addObject("listaDeClientes", clienteRepository.findAll());
+        mAv.addObject("listaDePizzas", produtoRepository.findByTipo("Pizza"));
+        mAv.addObject("listaDeBebidas", produtoRepository.findByTipo("Bebida"));
+        mAv.addObject("cliente", new Cliente());
+        mAv.addObject("produto", new Produto());
+        return mAv;
+    }
+
+    @RequestMapping("/selecionaProduto")
+    public ModelAndView selecionarProduto(@RequestParam("id") int id) {
+        System.out.println("buscando o aluno: " + id);
+        Optional<Produto> produtoTemp = produtoRepository.findById(Integer.valueOf(id));
+        Produto produto = produtoTemp.get();
+        System.out.println("produto: " + produto.getNome());
+
+        ModelAndView modelAndView = new ModelAndView("produtos");
+        modelAndView.addObject("produto", produto);
+        return modelAndView;
     }
 }
