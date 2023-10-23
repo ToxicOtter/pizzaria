@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.pizzaria.pizza.model.Cliente;
+import com.pizzaria.pizza.model.Produto;
 
 @Component
 public class ClienteDAOImpl implements ClienteDAO {
@@ -31,6 +32,56 @@ public class ClienteDAOImpl implements ClienteDAO {
                         rs.getString("nome"), 
                         rs.getString("endereco_entrega"), 
                         rs.getInt("telefone")
+                    )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Produto> listarPizzas() {
+        List<Produto> lista = null;
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:h2:C:/Users/luan_/Downloads/pizzaria", "teste","teste");
+            Statement stat = conn.createStatement();
+            ResultSet rs = stat.executeQuery("select * from produto where tipo = 'Pizza'");
+            lista = new ArrayList<Produto>();
+            while (rs.next()) {
+                lista.add(
+                    new Produto(
+                        rs.getInt("id"), 
+                        rs.getString("nome"), 
+                        rs.getString("descricao"), 
+                        rs.getFloat("valor"), 
+                        rs.getString("tipo")
+                    )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Produto> listarBebidas() {
+        List<Produto> lista = null;
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:h2:C:/Users/luan_/Downloads/pizzaria", "teste","teste");
+            Statement stat = conn.createStatement();
+            ResultSet rs = stat.executeQuery("select * from produto where tipo = 'Bebida'");
+            lista = new ArrayList<Produto>();
+            while (rs.next()) {
+                lista.add(
+                    new Produto(
+                        rs.getInt("id"), 
+                        rs.getString("nome"), 
+                        rs.getString("descricao"), 
+                        rs.getFloat("valor"), 
+                        rs.getString("tipo")
                     )
                 );
             }

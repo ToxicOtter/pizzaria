@@ -9,9 +9,14 @@
                     <td>Nome</td>
                 </tr>
             </thead>
-            <tbody>
+            <!-- <tbody>
                 <tr th:each="cliente: ${listaDeClientes}">
                     <td th:text="${cliente.nome}"></td>
+                </tr>
+            </tbody> -->
+            <tbody>
+                <tr th:each="pizza: ${listaDePizzas}">
+                    <td th:text="${pizza.nome}"></td>
                 </tr>
             </tbody>
         </table>

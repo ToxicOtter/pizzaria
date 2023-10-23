@@ -21,4 +21,5 @@ public class Produto {
     private String nome;
     private String descricao;
     private float valor;
+    private String tipo;
 }

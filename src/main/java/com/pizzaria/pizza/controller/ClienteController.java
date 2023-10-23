@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pizzaria.pizza.model.Cliente;
+import com.pizzaria.pizza.model.Produto;
 import com.pizzaria.pizza.model.bd.ClienteDAO;
 
 @Controller
@@ -25,6 +26,20 @@ public class ClienteController {
         ModelAndView mAv = new ModelAndView("cliente");
         mAv.addObject("listaDeClientes", clientes);
         mAv.addObject("cliente", new Cliente());
+        return mAv;
+    }
+
+    @GetMapping("/pizzas")
+    public ModelAndView listarPizzas() {
+        List<Produto> pizzas = clienteDAO.listarPizzas();
+        for (Produto pizza : pizzas) {
+            System.out.println(pizza.getNome());
+        }
+
+        ModelAndView mAv = new ModelAndView("cliente");
+        mAv.addObject("listaDePizzas", pizzas);
+        mAv.addObject("pizza", new Produto());
+        System.out.println(pizzas);
         return mAv;
     }
 }
