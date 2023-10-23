@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Página de Alunos</title>
+    </head>
+    <body>
+        <!-- <form method="POST" th:object="${aluno}" th:action="@{/aluno}">
+            Matricula: <input type="text" name="matricula" th:field="*{matricula}">
+            Nome: <input type="text" name="nome" th:field="*{nome}">
+            Data de Nascimento: <input type="date" name="dataNascimento" th:field="*{dataNascimento}">
+            <input type="submit" value="Salvar"></input>
+        </form> -->
+            
+        <table>
+            <thead>
+                <tr>
+                    <td>Nome</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cliente: ${listaDeClientes}">
+                    <td th:text="${cliente.nome}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
