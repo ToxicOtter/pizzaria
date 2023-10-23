@@ -1,45 +1,27 @@
 package com.pizzaria.pizza.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pizzaria.pizza.model.Cliente;
-import com.pizzaria.pizza.model.Produto;
-import com.pizzaria.pizza.model.bd.ClienteDAO;
+import com.pizzaria.pizza.model.bd.ClienteRepository;
+import com.pizzaria.pizza.model.bd.ProdutoRepository;
 
 @Controller
 public class ClienteController {
     @Autowired
-    private ClienteDAO clienteDAO;
+    private ClienteRepository clienteRepository;
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @GetMapping("/testeLista")
     public ModelAndView listarClientes() {
-        List<Cliente> clientes = clienteDAO.listarClientes();
-        for (Cliente cliente : clientes) {
-            System.out.println(cliente.getNome());
-        }
-
         ModelAndView mAv = new ModelAndView("cliente");
-        mAv.addObject("listaDeClientes", clientes);
+        mAv.addObject("listaDeClientes", clienteRepository.findAll());
+        mAv.addObject("listaDePizzas", produtoRepository.findByTipo("Pizza"));
         mAv.addObject("cliente", new Cliente());
-        return mAv;
-    }
-
-    @GetMapping("/pizzas")
-    public ModelAndView listarPizzas() {
-        List<Produto> pizzas = clienteDAO.listarPizzas();
-        for (Produto pizza : pizzas) {
-            System.out.println(pizza.getNome());
-        }
-
-        ModelAndView mAv = new ModelAndView("cliente");
-        mAv.addObject("listaDePizzas", pizzas);
-        mAv.addObject("pizza", new Produto());
-        System.out.println(pizzas);
         return mAv;
     }
 }

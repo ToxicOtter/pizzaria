@@ -1,11 +1,13 @@
 package com.pizzaria.pizza.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +26,6 @@ public class Pedido {
     private float valor;
     private String status;
     private String pagamento;
+    @OneToMany(mappedBy = "pedido")
+    private List<PedidoClienteProduto> pedidoClienteProduto;
 }
