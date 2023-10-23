@@ -1,9 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Página de Alunos</title>
-    </head>
-    <body>  
-        <table>
+
+<head>
+    <title>Página de Alunos</title>
+</head>
+
+<body>
+    <!-- <table>
             <thead>
                 <tr>
                     <td>Nome</td>
@@ -14,11 +16,63 @@
                     <td th:text="${cliente.nome}"></td>
                 </tr>
             </tbody>
+ 
             <tbody>
                 <tr th:each="pizza: ${listaDePizzas}">
                     <td th:text="${pizza.nome}"></td>
                 </tr>
             </tbody>
+        </table> -->
+
+
+    <form th:action="@{/salvarItem}" method="post">
+        <table class="table">
+            <thead class="table-primary">
+                <tr>
+                    <td>Id</td>
+                    <td>Nome</td>
+                    <td>Descrição</td>
+                    <td>Valor</td>
+                    <td>Quantidade</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr th:each="pizza: ${listaDePizzas}">
+                    <td><input type="text" name="id" id="id" th:value="${pizza.id}"></td>
+                    <td th:text="${pizza.nome}"></td>
+                    <td th:text="${pizza.descricao}"></td>
+                    <td th:text="${pizza.valor}"></td>
+                    <td><input type="number" name="qtd" id="qtd"></td>
+                    <td><input type="submit" value="Salvar"></td>
+                </tr>
+            </tbody>
         </table>
-    </body>
+    </form>
+    <form th:action="@{/salvarItem}" method="post">
+        <table class="table">
+            <thead class="table-primary">
+                <tr>
+                    <td>Id</td>
+                    <td>Nome</td>
+                    <td>Descrição</td>
+                    <td>Valor</td>
+                    <td>Quantidade</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr th:each="bebida: ${listaDeBebidas}">
+                    <td><input type="text" name="id" id="id" th:value="${bebida.id}"></td>
+                    <td th:text="${bebida.nome}"></td>
+                    <td th:text="${bebida.descricao}"></td>
+                    <td th:text="${bebida.valor}"></td>
+                    <td><input type="number" name="qtd" id="qtd"></td>
+                    <td><input type="submit" value="Salvar"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</body>
+
 </html>
