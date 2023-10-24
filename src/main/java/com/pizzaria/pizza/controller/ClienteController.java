@@ -95,4 +95,10 @@ public class ClienteController {
         System.out.println(pedidoAtual.getNumero());
         return "redirect:/selecionarItens";
     }
+
+    @RequestMapping("/deletarPedido")
+    public String deletarPedido(){
+        pedidoRepository.delete(pedidoAtual);
+        return "redirect:/";
+    }
 }

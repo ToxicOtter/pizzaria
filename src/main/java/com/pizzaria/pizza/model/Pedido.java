@@ -3,6 +3,9 @@ package com.pizzaria.pizza.model;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +34,7 @@ public class Pedido {
     private String status;
     private String pagamento;
     @OneToMany(mappedBy = "pedido")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PedidoClienteProduto> pedidoClienteProduto;
 
     public Pedido(float valor, String status, String pagamento){
