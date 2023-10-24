@@ -61,13 +61,6 @@ public class ClienteController {
 
     @PostMapping("/salvarItem")
     public String receberPizza(@RequestParam("id") int pizzaId, @RequestParam("qtd") int pizzaQtd, @RequestParam("tamanho") String pizzaTamanho, @RequestParam("valorTotalUnitario") String pizzaValorTotal) {
-        // List<Integer> pizza = new ArrayList<Integer>();
-        // System.out.println(pizzaTamanho);
-        // System.out.println(pizzaValorTotal);
-        // pizza.add(pizzaId);
-        // pizza.add(pizzaQtd);
-        // System.out.println(pizza);
-        // System.out.println(itens);
         PedidoClienteProduto itemPedido = new PedidoClienteProduto(pedidoAtual, clienteLogado, produtoSelecionado, pizzaQtd, pizzaTamanho, Float.parseFloat(pizzaValorTotal));
         pedidoItemRepository.save(itemPedido);
         itens.add(itemPedido);
@@ -99,6 +92,31 @@ public class ClienteController {
     @RequestMapping("/deletarPedido")
     public String deletarPedido(){
         pedidoRepository.delete(pedidoAtual);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/finalizar")
+    public ModelAndView finalizar(){
+        float total = 0;
+        for(PedidoClienteProduto item : itens){
+            total += item.getPrecoProduto();
+        }
+
+        ModelAndView mAv = new ModelAndView("finalizar");
+        mAv.addObject("cliente", clienteLogado);
+        mAv.addObject("itens", itens);
+        mAv.addObject("total", total);
+        return mAv;
+    }
+
+    @RequestMapping("/encerrar")
+    public String encerrar(@RequestParam("pagamento") String pagamento, @RequestParam("valor") float valor){
+        pedidoAtual.setPagamento(pagamento);
+        pedidoAtual.setStatus("Finalizado");
+        pedidoAtual.setValor(valor);
+        pedidoRepository.save(pedidoAtual);
+        System.out.println(pagamento);
+        System.out.println(valor);
         return "redirect:/";
     }
 }

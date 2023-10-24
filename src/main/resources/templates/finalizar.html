@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Finalizar pedido</title>
+    <link rel="stylesheet" th:href="@{/finalizar.css}">
+</head>
+
+<body>
+    <div id="carrinho">
+        <h2>Confirme os itens do pedido e o valor final</h2>
+        <table class="table">
+            <thead class="table-primary">
+                <tr>
+                    <td>Nome</td>
+                    <td>Quantidade</td>
+                    <td>Tamanho</td>
+                    <td>Preço</td>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr th:each="item: ${itens}">
+                    <td th:text="${item.produto.nome}"></td>
+                    <td th:text="${item.quantidadeProduto}"></td>
+                    <td th:text="${item.tamanho}"></td>
+                    <td th:text="${item.precoProduto}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p id="total" th:text="${total}"></p>
+        <button>Voltar</button>
+        <button onclick="infoClienteVisivel()">Prosseguir</button>
+    </div>
+    <div id="info-cliente" class="oculto">
+        Confirme as informações de entrega
+        <p th:text="${cliente.nome}"></p>
+        <p th:text="${cliente.enderecoEntrega}"></p>
+        <button onclick="carrinhoVisivel()">Voltar</button>
+        <button onclick="formaPagamentoVisivel()">Prosseguir</button>
+    </div>
+    <div id="forma-pagamento" class="oculto">
+        <h2>Selecione a forma de pagamento</h2>
+        <select name="pagamento" id="pagamento">
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Debito">Cartão Débito</option>
+            <option value="Credito">Cartão Crédito</option>
+            <option value="Pix">Pix</option>
+        </select>
+        <button onclick="finalizar()">Finalizar</button>
+    </div>
+    <button onclick="deletar()">Cancelar pedido</button>
+    <script type="text/javascript" th:src="@{/finalizar.js}"></script>
+</body>
+
+</html>

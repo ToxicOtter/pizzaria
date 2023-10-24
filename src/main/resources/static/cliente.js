@@ -3,3 +3,7 @@ function deletar(){
         window.location.replace("/deletarPedido");
     }
 }
+
+function finalizar(){
+    window.location.replace("/finalizar");
+}
