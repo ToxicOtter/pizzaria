@@ -1,10 +1,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Página de Alunos</title>
+    <title>Produto</title>
 </head>
 
-<body>
+<body onload="calcularValor()">
     <table>
         <tbody>
             <tr>
@@ -21,6 +21,8 @@
                     <td>Descrição</td>
                     <td>Valor</td>
                     <td>Quantidade</td>
+                    <td>Tamanho</td>
+                    <td>Valor final</td>
                     <td></td>
                 </tr>
             </thead>
@@ -29,13 +31,19 @@
                     <td><input type="text" name="id" id="id" th:value="${produto.id}"></td>
                     <td th:text="${produto.nome}"></td>
                     <td th:text="${produto.descricao}"></td>
-                    <td th:text="${produto.valor}"></td>
+                    <td id="valorUnitario" th:text="${produto.valor}"></td>
                     <td><input type="number" name="qtd" id="qtd"></td>
+                    <td><select id="tamanho" name="tamanho">
+                        <option value="8">8 pedaços (+10 reais)</option>
+                        <option value="6">6 pedaços (+5 reais)</option>
+                    </select></td>
+                    <td><input type="text" name="valorTotalUnitario" id="valorTotalUnitario"></td>
                     <td><input type="submit" value="Adicionar"></td>
                 </tr>
             </tbody>
         </table>
     </form>
+    <script type="text/javascript" th:src="@{/script.js}"></script>
 </body>
 
 </html>

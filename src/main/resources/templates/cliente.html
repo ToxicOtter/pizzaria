@@ -1,11 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Página de Alunos</title>
+    <title>Selecionar itens</title>
 </head>
 
 <body>
-    <p th:each="item: ${itens}" th:text="${item.get(0)}"></p>
+    <p th:each="item: ${itens}" th:text="${item.produto.nome}"></p>
 
     <table class="table">
         <thead class="table-primary">

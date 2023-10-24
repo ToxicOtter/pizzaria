@@ -33,5 +33,6 @@ public class PedidoClienteProduto {
     private Produto produto;
 
     private int quantidadeProduto;
+    private String tamanho;
     private float precoProduto;
 }
