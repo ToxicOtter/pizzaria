@@ -1,4 +1,4 @@
-insert into cliente(email, cpf, nome, endereco_entrega, telefone) values ('luan.lima.lopes16@gmail.com', 000, 'Luan', 'avenida', 991);
+insert into cliente(email, cpf, nome, endereco_entrega, telefone, senha) values ('luan.lima.lopes16@gmail.com', 000, 'Luan', 'avenida', 991,'aaa');
 
 insert into produto(nome, descricao, valor, tipo) values ('Pizza mussarela','8 pedaços',49.9, 'Pizza');
 insert into produto(nome, descricao, valor, tipo) values ('Pizza peperoni','8 pedaços',54.8, 'Pizza');

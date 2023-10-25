@@ -32,11 +32,11 @@ public class ClienteController {
     @Autowired
     private PedidoClienteProdutoRepository pedidoItemRepository;
 
-    // private List<List<Integer>> itens = new ArrayList<>();
     private List<PedidoClienteProduto> itens = new ArrayList<>();
     private Pedido pedidoAtual;
     private Produto produtoSelecionado;
     private Cliente clienteLogado;
+    private String respostaLogin;
 
     @RequestMapping("/")
     public ModelAndView home() {
@@ -85,6 +85,9 @@ public class ClienteController {
 
     @RequestMapping("/iniciarPedido")
     public String iniciarPedido() {
+        if (clienteLogado == null){
+            return "redirect:/autenticacao";
+        }
         if (pedidoAtual == null) {
             pedidoAtual = new Pedido((float) 0, "Iniciado", "");
             pedidoRepository.save(pedidoAtual);
@@ -123,4 +126,34 @@ public class ClienteController {
         System.out.println(valor);
         return "redirect:/";
     }
+
+    @RequestMapping("/autenticacao")
+    public ModelAndView autenticacao(){
+        ModelAndView mAv = new ModelAndView("login");
+        mAv.addObject("respostaLogin", respostaLogin);
+        return mAv;
+    }
+
+    @RequestMapping("/login")
+    public String login(@RequestParam("email") String email, @RequestParam("senha") String senha){
+        Cliente clienteTemp = clienteRepository.findByEmail(email);
+        if(clienteTemp == null){
+            respostaLogin = "Usuário ou senha incorretos";
+            return "redirect:/autenticacao";
+        } else {
+            if(clienteTemp.getSenha().equals(senha)){
+                return "redirect:/selecionarItens";
+            } else {
+                respostaLogin = "Usuário ou senha incorretos";
+                return "redirect:/autenticacao";
+            }
+        }
+    }
+
+    // @RequestMapping("/autenticacao")
+    // public ModelAndView autenticacao(){
+    //     ModelAndView mAv = new ModelAndView("login");
+    //     mAv.addObject("respostaLogin", respostaLogin);
+    //     return mAv;
+    // }
 }

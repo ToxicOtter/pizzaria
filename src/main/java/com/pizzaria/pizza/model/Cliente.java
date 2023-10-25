@@ -27,6 +27,7 @@ public class Cliente {
     private String nome;
     private String enderecoEntrega;
     private int telefone;
+    private String senha;
     @OneToMany(mappedBy = "cliente")
     private List<PedidoClienteProduto> pedidoClienteProduto;
 

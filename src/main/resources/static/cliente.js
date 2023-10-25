@@ -11,6 +11,11 @@ function finalizar(){
 }
 
 function verificarVazio(){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", "/verificarLogin", false ); // false for synchronous request
+    xmlHttp.send( null );
+    console.log(xmlHttp.responseText);
+
     if(item){
         finalizar();
     } else {
