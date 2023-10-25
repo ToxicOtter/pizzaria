@@ -32,7 +32,7 @@ public class ClienteController {
     @Autowired
     private PedidoClienteProdutoRepository pedidoItemRepository;
 
-    //private List<List<Integer>> itens = new ArrayList<>();
+    // private List<List<Integer>> itens = new ArrayList<>();
     private List<PedidoClienteProduto> itens = new ArrayList<>();
     private Pedido pedidoAtual;
     private Produto produtoSelecionado;
@@ -60,8 +60,10 @@ public class ClienteController {
     }
 
     @PostMapping("/salvarItem")
-    public String receberPizza(@RequestParam("id") int pizzaId, @RequestParam("qtd") int pizzaQtd, @RequestParam("tamanho") String pizzaTamanho, @RequestParam("valorTotalUnitario") String pizzaValorTotal) {
-        PedidoClienteProduto itemPedido = new PedidoClienteProduto(pedidoAtual, clienteLogado, produtoSelecionado, pizzaQtd, pizzaTamanho, Float.parseFloat(pizzaValorTotal));
+    public String receberPizza(@RequestParam("id") int pizzaId, @RequestParam("qtd") int pizzaQtd,
+            @RequestParam("tamanho") String pizzaTamanho, @RequestParam("valorTotalUnitario") String pizzaValorTotal) {
+        PedidoClienteProduto itemPedido = new PedidoClienteProduto(pedidoAtual, clienteLogado, produtoSelecionado,
+                pizzaQtd, pizzaTamanho, Float.parseFloat(pizzaValorTotal));
         pedidoItemRepository.save(itemPedido);
         itens.add(itemPedido);
         System.out.println(clienteLogado.getNome());
@@ -72,7 +74,7 @@ public class ClienteController {
     public ModelAndView selecionarProduto(@RequestParam("id") int id) {
         System.out.println("buscando o produto: " + id);
         Optional<Produto> produtoTemp = produtoRepository.findById(Integer.valueOf(id));
-        //Produto produto = produtoTemp.get();
+        // Produto produto = produtoTemp.get();
         produtoSelecionado = produtoTemp.get();
         System.out.println("produto: " + produtoSelecionado.getNome());
 
@@ -83,22 +85,24 @@ public class ClienteController {
 
     @RequestMapping("/iniciarPedido")
     public String iniciarPedido() {
-        pedidoAtual = new Pedido((float) 0, "Iniciado", "");
-        pedidoRepository.save(pedidoAtual);
-        System.out.println(pedidoAtual.getNumero());
+        if (pedidoAtual == null) {
+            pedidoAtual = new Pedido((float) 0, "Iniciado", "");
+            pedidoRepository.save(pedidoAtual);
+            System.out.println(pedidoAtual.getNumero());
+        }
         return "redirect:/selecionarItens";
     }
 
     @RequestMapping("/deletarPedido")
-    public String deletarPedido(){
+    public String deletarPedido() {
         pedidoRepository.delete(pedidoAtual);
         return "redirect:/";
     }
 
     @RequestMapping("/finalizar")
-    public ModelAndView finalizar(){
+    public ModelAndView finalizar() {
         float total = 0;
-        for(PedidoClienteProduto item : itens){
+        for (PedidoClienteProduto item : itens) {
             total += item.getPrecoProduto();
         }
 
@@ -110,7 +114,7 @@ public class ClienteController {
     }
 
     @RequestMapping("/encerrar")
-    public String encerrar(@RequestParam("pagamento") String pagamento, @RequestParam("valor") float valor){
+    public String encerrar(@RequestParam("pagamento") String pagamento, @RequestParam("valor") float valor) {
         pedidoAtual.setPagamento(pagamento);
         pedidoAtual.setStatus("Finalizado");
         pedidoAtual.setValor(valor);

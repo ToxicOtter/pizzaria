@@ -4,8 +4,10 @@
     <title>Selecionar itens</title>
 </head>
 
-<body>
-    <p th:each="item: ${itens}" th:text="${item.produto.nome}"></p>
+<body onload="teste()">
+    <div id="itemDiv" th:each="item: ${itens}">
+        <td th:text="${item.produto.nome} ?: 'UNKNOWN'"></td>
+    </div>
 
     <table class="table">
         <thead class="table-primary">
@@ -47,7 +49,7 @@
     </table>
     <div>
         <button onclick="deletar()">Cancelar</button>
-        <button onclick="finalizar()">Finalizar pedido</button>
+        <button onclick="verificarVazio()">Finalizar pedido</button>
     </div>
     <script type="text/javascript" th:src="@{/cliente.js}"></script>
 </body>
