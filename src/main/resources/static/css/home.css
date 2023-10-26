@@ -1,0 +1,27 @@
+.c-imagem {
+    height: 500px;
+}
+
+.pedido {
+    width: 100%; 
+    text-align: center; 
+    margin-top: 20px;
+}
+
+footer {
+    background-color: black; 
+    position: fixed; 
+    left: 0; 
+    bottom: 0; 
+    width: 100%; 
+    text-align: center;
+}
+
+footer a {
+    text-decoration: none; 
+    color: white;
+}
+
+.botao-logar {
+    text-decoration: none;
+}
