@@ -4,40 +4,50 @@ let divFormaPagamento = document.getElementById("forma-pagamento");
 let divEnderecoAlternativo = document.getElementById("endereco-alternativo");
 
 let pagamento = document.getElementById("pagamento");
-let pagamentoSelecionado = pagamento.options[pagamento.selectedIndex].text;
+let pagamentoSelecionado = 'Dinheiro';
 let endereco = document.getElementById("enderecoCliente").textContent;
 let enderecoNovo = document.getElementById("novoEndereco");
 let valor = document.getElementById("total").textContent;
 
+let cliente = document.getElementById("nomeCliente");
+let bemVindo = document.getElementById("bem-vindo");
+let logar = document.getElementById("logar");
+
+let btnMostrarEnd = document.getElementById("botao-mostrar-end");
 let enderecoCadastro = true;
 let enderecoNovoValor;
 
+function obterPagamento(){
+    pagamentoSelecionado = pagamento.value;
+}
+
 function carrinhoVisivel(){
-    divCarrinho.style.visibility = "visible";
-    divInfoCliente.style.visibility = "hidden";
-    divFormaPagamento.style.visibility = "hidden";
+    divCarrinho.style.display = "flex";
+    divInfoCliente.style.display = "none";
+    divFormaPagamento.style.display = "none";
 }
 
 function infoClienteVisivel(){
-    divCarrinho.style.visibility = "hidden";
-    divInfoCliente.style.visibility = "visible";
-    divFormaPagamento.style.visibility = "hidden";
+    divCarrinho.style.display = "none";
+    divInfoCliente.style.display = "block";
+    divFormaPagamento.style.display = "none";
 }
 
 function formaPagamentoVisivel(){
-    divCarrinho.style.visibility = "hidden";
-    divInfoCliente.style.visibility = "hidden";
-    divFormaPagamento.style.visibility = "visible";
+    divCarrinho.style.display = "none";
+    divInfoCliente.style.display = "none";
+    divFormaPagamento.style.display = "flex";
 }
 
 function trocarEndereco(trocar){
-    console.log(typeof trocar);
     if(trocar){
         enderecoCadastro = trocar;
-        divEnderecoAlternativo.style.visibility = "hidden";
+        divEnderecoAlternativo.style.display = "none";
+        btnMostrarEnd.style.display = "inline-block";
     } else {
         enderecoCadastro = trocar;
-        divEnderecoAlternativo.style.visibility = "visible";
+        divEnderecoAlternativo.style.display = "block";
+        btnMostrarEnd.style.display = "none";
     }
 }
 
@@ -64,3 +74,14 @@ const inputHandler = function(e){
 }
 
 enderecoNovo.addEventListener('input', inputHandler);
+
+function mostrarLogado(){
+    carrinhoVisivel();
+    divEnderecoAlternativo.style.display = "none";
+    if(cliente){
+        logar.style.display = "none"
+    } else {
+        bemVindo.style.display = "none"
+        logar.style.display = "inline-block"
+    }
+}
