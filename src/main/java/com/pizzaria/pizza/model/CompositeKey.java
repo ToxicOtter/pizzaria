@@ -17,4 +17,6 @@ public class CompositeKey implements Serializable {
     @ManyToOne
     @JoinColumn(name="produto_id")
     private Produto produto;
+
+    private String tamanho;
 }

@@ -67,8 +67,9 @@ public class ClienteController {
         boolean aumentouQtd = false;
         if(itens != null){
             for(PedidoClienteProduto item : itens){
-                if(item.getProduto().getId() == itemPedido.getProduto().getId()){
+                if(item.getProduto().getId() == itemPedido.getProduto().getId() && item.getTamanho().equals(itemPedido.getTamanho())){
                     item.setQuantidadeProduto(item.getQuantidadeProduto() + itemPedido.getQuantidadeProduto());
+                    item.setPrecoProduto(item.getPrecoProduto() + itemPedido.getPrecoProduto());
                     pedidoItemRepository.save(item);
                     aumentouQtd = true;
                 }
