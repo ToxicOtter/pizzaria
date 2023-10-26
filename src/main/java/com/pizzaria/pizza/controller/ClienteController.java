@@ -64,9 +64,23 @@ public class ClienteController {
             @RequestParam("tamanho") String pizzaTamanho, @RequestParam("valorTotalUnitario") String pizzaValorTotal) {
         PedidoClienteProduto itemPedido = new PedidoClienteProduto(pedidoAtual, clienteLogado, produtoSelecionado,
                 pizzaQtd, pizzaTamanho, Float.parseFloat(pizzaValorTotal));
-        pedidoItemRepository.save(itemPedido);
-        itens.add(itemPedido);
-        System.out.println(clienteLogado.getNome());
+        boolean aumentouQtd = false;
+        if(itens != null){
+            for(PedidoClienteProduto item : itens){
+                if(item.getProduto().getId() == itemPedido.getProduto().getId()){
+                    item.setQuantidadeProduto(item.getQuantidadeProduto() + itemPedido.getQuantidadeProduto());
+                    pedidoItemRepository.save(item);
+                    aumentouQtd = true;
+                }
+            }
+            if(!aumentouQtd){
+                pedidoItemRepository.save(itemPedido);
+                itens.add(itemPedido);
+            }
+        } else {
+            pedidoItemRepository.save(itemPedido);
+            itens.add(itemPedido);
+        }
         return "redirect:/selecionarItens";
     }
 
@@ -74,7 +88,6 @@ public class ClienteController {
     public ModelAndView selecionarProduto(@RequestParam("id") int id) {
         System.out.println("buscando o produto: " + id);
         Optional<Produto> produtoTemp = produtoRepository.findById(Integer.valueOf(id));
-        // Produto produto = produtoTemp.get();
         produtoSelecionado = produtoTemp.get();
         System.out.println("produto: " + produtoSelecionado.getNome());
 
