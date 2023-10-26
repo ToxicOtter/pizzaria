@@ -24,6 +24,7 @@ public class Produto {
     private String descricao;
     private float valor;
     private String tipo;
+    private String url;
     @OneToMany(mappedBy = "produto")
     private List<PedidoClienteProduto> pedidoClienteProduto;
 

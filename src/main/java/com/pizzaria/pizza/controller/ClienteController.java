@@ -53,7 +53,6 @@ public class ClienteController {
         mAv.addObject("listaDePizzas", produtoRepository.findByTipo("Pizza"));
         mAv.addObject("listaDeBebidas", produtoRepository.findByTipo("Bebida"));
         mAv.addObject("cliente", clienteLogado);
-        // mAv.addObject("produto", new Produto());
         mAv.addObject("itens", itens);
         return mAv;
     }

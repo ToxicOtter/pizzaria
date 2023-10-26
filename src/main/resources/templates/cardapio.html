@@ -98,10 +98,10 @@
             </thead>
             <tbody>
                 <tr th:each="item: ${itens}" class="linhaPedido">
-                    <td th:text="${item.produto.nome} ?: 'UNKNOWN'"></td>
-                    <td th:text="${item.quantidadeProduto} ?: 'UNKNOWN'"></td>
-                    <td th:text="${item.tamanho} ?: 'UNKNOWN'"></td>
-                    <td th:text="${item.precoProduto} ?: 'UNKNOWN'"></td>
+                    <td th:text="${item.produto.nome}"></td>
+                    <td th:text="${item.quantidadeProduto}"></td>
+                    <td th:text="${item.tamanho}"></td>
+                    <td class="preco">R$<span th:text="${#numbers.formatDecimal(item.precoProduto, 0, 'COMMA', 2, 'POINT')}"></span></td>
                 </tr>
             </tbody>
         </table>
@@ -119,11 +119,11 @@
         <h2>Pizzas</h2>
         <div class="produto-card">
             <div class="card" style="width: 18rem;" th:each="pizza: ${listaDePizzas}">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" th:src="${pizza.url}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${pizza.nome}"></h5>
                     <p class="card-text" th:text="${pizza.descricao}"></p>
-                    <p class="preco" th:text="${pizza.valor}">R$<span ></span></p>
+                    <p class="preco">R$<span th:text="${#numbers.formatDecimal(pizza.valor, 0, 'COMMA', 2, 'POINT')}"></span></p>
                     <a th:href="@{/selecionaProduto(id=${pizza.id})}" class="btn btn-primary">Selecionar</a>
                 </div>
             </div>
@@ -134,10 +134,10 @@
         <h2>Bebidas</h2>
         <div class="produto-card">
             <div class="card" style="width: 18rem;" th:each="bebida: ${listaDeBebidas}">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" th:src="${bebida.url}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${bebida.nome}"></h5>
-                    <p class="preco" th:text="${bebida.valor}">R$<span ></span></p>
+                    <p class="preco">R$<span th:text="${#numbers.formatDecimal(bebida.valor, 0, 'COMMA', 2, 'POINT')}"></span></p>
                     <a th:href="@{/selecionaProduto(id=${bebida.id})}" class="btn btn-primary">Selecionar</a>
                 </div>
             </div>
