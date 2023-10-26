@@ -2,8 +2,15 @@ let divCarrinho = document.getElementById("carrinho");
 let divInfoCliente = document.getElementById("info-cliente");
 let divFormaPagamento = document.getElementById("forma-pagamento");
 
-let pagamento = document.getElementById("pagamento").value;
+let pagamento = document.getElementById("pagamento");
+let pagamentoSelecionado = pagamento.options[pagamento.selectedIndex].text;
+let endereco = document.getElementById("enderecoCliente").value;
 let valor = document.getElementById("total").textContent;
+
+function checar(){
+    console.log(pagamento.options[pagamento.selectedIndex].text);
+    console.log(endereco);
+}
 
 function carrinhoVisivel(){
     divCarrinho.style.visibility = "visible";
@@ -30,7 +37,11 @@ function deletar(){
 }
 
 function finalizar(){
-    window.location.replace("/encerrar?pagamento="+pagamento+"&valor="+valor);
+    window.location.replace("/encerrar?pagamento="+pagamentoSelecionado+"&valor="+valor+"&endereco="+endereco);
     console.log(pagamento);
     console.log(valor);
+}
+
+function voltarParaItens(){
+    window.location.replace("/selecionarItens");
 }

@@ -33,11 +33,12 @@ public class Pedido {
     private float valor;
     private String status;
     private String pagamento;
+    private String endereco;
     @OneToMany(mappedBy = "pedido")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PedidoClienteProduto> pedidoClienteProduto;
 
-    public Pedido(float valor, String status, String pagamento){
+    public Pedido(float valor, String status, String pagamento, String endereco){
         this.valor = valor;
         this.status = status;
         this.pagamento = pagamento;

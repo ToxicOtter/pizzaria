@@ -41,8 +41,6 @@ public class ClienteController {
 
     @RequestMapping("/")
     public ModelAndView home() {
-        // Optional<Cliente> tempClienteLogado = clienteRepository.findById(1);
-        // clienteLogado = tempClienteLogado.get();
         ModelAndView mAv = new ModelAndView("home");
         mAv.addObject("cliente", clienteLogado);
         return mAv;
@@ -104,10 +102,9 @@ public class ClienteController {
         if (clienteLogado == null) {
             return "redirect:/autenticacao";
         }
-        if (pedidoAtual == null) {
-            pedidoAtual = new Pedido((float) 0, "Iniciado", "");
+        if (pedidoAtual == null || pedidoAtual.getStatus().equals("Finalizado")) {
+            pedidoAtual = new Pedido((float) 0, "Iniciado", "", "");
             pedidoRepository.save(pedidoAtual);
-            System.out.println(pedidoAtual.getNumero());
         }
         return "redirect:/selecionarItens";
     }
@@ -133,13 +130,13 @@ public class ClienteController {
     }
 
     @RequestMapping("/encerrar")
-    public String encerrar(@RequestParam("pagamento") String pagamento, @RequestParam("valor") float valor) {
+    public String encerrar(@RequestParam("pagamento") String pagamento, @RequestParam("valor") float valor, @RequestParam("endereco") String endereco) {
         pedidoAtual.setPagamento(pagamento);
         pedidoAtual.setStatus("Finalizado");
         pedidoAtual.setValor(valor);
+        pedidoAtual.setEndereco(endereco);
         pedidoRepository.save(pedidoAtual);
-        System.out.println(pagamento);
-        System.out.println(valor);
+        itens = new ArrayList<>();
         return "redirect:/";
     }
 
@@ -160,7 +157,7 @@ public class ClienteController {
         } else {
             if (clienteTemp.getSenha().equals(senha)) {
                 clienteLogado = clienteTemp;
-                return "redirect:/selecionarItens";
+                return "redirect:/iniciarPedido";
             } else {
                 respostaLogin = "Usuário ou senha incorretos";
                 return "redirect:/autenticacao";
