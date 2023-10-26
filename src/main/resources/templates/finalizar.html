@@ -32,9 +32,13 @@
     </div>
     <div id="info-cliente" class="oculto">
         Confirme as informações de entrega
-        Altere caso necessário
         <p th:text="${cliente.nome}"></p>
-        <input id="enderecoCliente" th:value="${cliente.enderecoEntrega}"></p>
+        <p id="enderecoCliente" th:text="${cliente.enderecoEntrega}"></p>
+        <button onclick="trocarEndereco(false)">Inserir outro endereço para entrega</button>
+        <div class="oculto" id="endereco-alternativo">
+            Novo endereço<input type="text" name="novoEndereco" id="novoEndereco">
+            <button id="enderecoCadastro" onclick="trocarEndereco(true)">Usar endereço do cadastro</button>
+        </div>
         <button onclick="carrinhoVisivel()">Voltar</button>
         <button onclick="formaPagamentoVisivel()">Prosseguir</button>
     </div>
@@ -46,6 +50,7 @@
             <option value="Credito">Cartão Crédito</option>
             <option value="Pix">Pix</option>
         </select>
+        <button onclick="infoClienteVisivel()">Voltar</button>
         <button onclick="finalizar()">Finalizar</button>
     </div>
     <button onclick="deletar()">Cancelar pedido</button>

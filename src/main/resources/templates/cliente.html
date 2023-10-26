@@ -4,7 +4,7 @@
     <title>Selecionar itens</title>
 </head>
 
-<body onload="teste()">
+<body>
     <div id="itemDiv" th:each="item: ${itens}">
         <td th:text="${item.produto.nome} ?: 'UNKNOWN'"></td>
     </div>
