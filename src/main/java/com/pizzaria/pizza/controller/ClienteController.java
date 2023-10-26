@@ -3,6 +3,7 @@ package com.pizzaria.pizza.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,10 +41,10 @@ public class ClienteController {
 
     @RequestMapping("/")
     public ModelAndView home() {
-        Optional<Cliente> tempClienteLogado = clienteRepository.findById(1);
-        clienteLogado = tempClienteLogado.get();
-        System.out.println(clienteLogado.getNome());
+        // Optional<Cliente> tempClienteLogado = clienteRepository.findById(1);
+        // clienteLogado = tempClienteLogado.get();
         ModelAndView mAv = new ModelAndView("home");
+        mAv.addObject("cliente", clienteLogado);
         return mAv;
     }
 
@@ -65,16 +66,17 @@ public class ClienteController {
         PedidoClienteProduto itemPedido = new PedidoClienteProduto(pedidoAtual, clienteLogado, produtoSelecionado,
                 pizzaQtd, pizzaTamanho, Float.parseFloat(pizzaValorTotal));
         boolean aumentouQtd = false;
-        if(itens != null){
-            for(PedidoClienteProduto item : itens){
-                if(item.getProduto().getId() == itemPedido.getProduto().getId() && item.getTamanho().equals(itemPedido.getTamanho())){
+        if (itens != null) {
+            for (PedidoClienteProduto item : itens) {
+                if (item.getProduto().getId() == itemPedido.getProduto().getId()
+                        && item.getTamanho().equals(itemPedido.getTamanho())) {
                     item.setQuantidadeProduto(item.getQuantidadeProduto() + itemPedido.getQuantidadeProduto());
                     item.setPrecoProduto(item.getPrecoProduto() + itemPedido.getPrecoProduto());
                     pedidoItemRepository.save(item);
                     aumentouQtd = true;
                 }
             }
-            if(!aumentouQtd){
+            if (!aumentouQtd) {
                 pedidoItemRepository.save(itemPedido);
                 itens.add(itemPedido);
             }
@@ -99,7 +101,7 @@ public class ClienteController {
 
     @RequestMapping("/iniciarPedido")
     public String iniciarPedido() {
-        if (clienteLogado == null){
+        if (clienteLogado == null) {
             return "redirect:/autenticacao";
         }
         if (pedidoAtual == null) {
@@ -142,20 +144,22 @@ public class ClienteController {
     }
 
     @RequestMapping("/autenticacao")
-    public ModelAndView autenticacao(){
+    public ModelAndView autenticacao() {
         ModelAndView mAv = new ModelAndView("login");
         mAv.addObject("respostaLogin", respostaLogin);
+        mAv.addObject("cliente", new Cliente());
         return mAv;
     }
 
     @RequestMapping("/login")
-    public String login(@RequestParam("email") String email, @RequestParam("senha") String senha){
+    public String login(@RequestParam("email") String email, @RequestParam("senha") String senha) {
         Cliente clienteTemp = clienteRepository.findByEmail(email);
-        if(clienteTemp == null){
+        if (clienteTemp == null) {
             respostaLogin = "Usuário ou senha incorretos";
             return "redirect:/autenticacao";
         } else {
-            if(clienteTemp.getSenha().equals(senha)){
+            if (clienteTemp.getSenha().equals(senha)) {
+                clienteLogado = clienteTemp;
                 return "redirect:/selecionarItens";
             } else {
                 respostaLogin = "Usuário ou senha incorretos";
@@ -164,10 +168,16 @@ public class ClienteController {
         }
     }
 
-    // @RequestMapping("/autenticacao")
-    // public ModelAndView autenticacao(){
-    //     ModelAndView mAv = new ModelAndView("login");
-    //     mAv.addObject("respostaLogin", respostaLogin);
-    //     return mAv;
-    // }
+    @RequestMapping("/signup")
+    public String signup(@ModelAttribute("cliente") Cliente cliente) {
+        Cliente clienteTemp = clienteRepository.findByEmail(cliente.getEmail());
+        if (clienteTemp == null) {
+            clienteRepository.save(cliente);
+            respostaLogin = "Usuário cadastrado com sucesso. Faça o login!";
+            return "redirect:/autenticacao";
+        } else {
+            respostaLogin = "Usuário já existe no sistema!";
+            return "redirect:/autenticacao";
+        }
+    }
 }
