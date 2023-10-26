@@ -1,8 +1,12 @@
 let item = document.getElementById("itemDiv");
 
 function deletar(){
-    if(window.confirm("Realmente deseja cancelar o pedido?") == true){
-        window.location.replace("/deletarPedido");
+    if(item){
+        if(window.confirm("Realmente deseja cancelar o pedido?") == true){
+            window.location.replace("/deletarPedido");
+        }
+    } else {
+        window.alert("O pedido está vazio")
     }
 }
 
@@ -19,6 +23,6 @@ function verificarVazio(){
     if(item){
         finalizar();
     } else {
-        window.alert("Pedido vazio! Por favor, selecione um item para prosseguir ou cancele o pedido.");
+        window.alert("Pedido vazio! Por favor, selecione um item para prosseguir.");
     }
 }

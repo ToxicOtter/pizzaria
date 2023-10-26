@@ -112,6 +112,8 @@ public class ClienteController {
     @RequestMapping("/deletarPedido")
     public String deletarPedido() {
         pedidoRepository.delete(pedidoAtual);
+        pedidoAtual.setStatus("Finalizado");
+        itens = new ArrayList<>();
         return "redirect:/";
     }
 
