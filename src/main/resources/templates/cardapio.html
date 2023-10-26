@@ -1,0 +1,164 @@
+<!-- <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Selecionar itens</title>
+</head>
+
+<body>
+    <div id="itemDiv" th:each="item: ${itens}">
+        <td th:text="${item.produto.nome} ?: 'UNKNOWN'"></td>
+    </div>
+
+    <table class="table">
+        <thead class="table-primary">
+            <tr>
+                <td>Id</td>
+                <td>Nome</td>
+                <td>Descrição</td>
+                <td>Valor</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr th:each="pizza: ${listaDePizzas}">
+                <td th:text="${pizza.nome}"></td>
+                <td th:text="${pizza.descricao}"></td>
+                <td th:text="${pizza.valor}"></td>
+                <td><a th:href="@{/selecionaProduto(id=${pizza.id})}">Selecionar</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <thead class="table-primary">
+            <tr>
+                <td>Id</td>
+                <td>Nome</td>
+                <td>Descrição</td>
+                <td>Valor</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr th:each="bebida: ${listaDeBebidas}">
+                <td th:text="${bebida.nome}"></td>
+                <td th:text="${bebida.descricao}"></td>
+                <td th:text="${bebida.valor}"></td>
+                <td><a th:href="@{/selecionaProduto(id=${bebida.id})}">Selecionar</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <button onclick="deletar()">Cancelar</button>
+        <button onclick="verificarVazio()">Finalizar pedido</button>
+    </div>
+    <script type="text/javascript" th:src="@{/cliente.js}"></script>
+</body>
+
+</html> -->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/cardapio.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/pizza-icon.ico}">
+    <title>Giuseppe's</title>
+</head>
+
+<body onload="mostrarLogado()">
+    <nav class="navbar navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/pizza-logo.png}" width="30" height="30" class="d-inline-block align-top" alt="">
+            Pizzaria do Giuseppe
+        </a>
+        <div>
+            <span id="bem-vindo" class="navbar-text">
+                Bem vindo(a), <span id="nomeCliente" th:each="c : ${cliente}" th:text="${c.nome}"></span>
+            </span>
+            <a id="logar" class="btn btn-dark botao-logar" th:href="@{/autenticacao}">Login</a>
+        </div>
+    </nav>
+
+    <div class="carrinho">
+        <div>
+            <h2>Carrinho</h2>
+            <img th:src="@{/images/trolley.png}" alt="">
+        </div>
+        <table class="table table-hover table-sm" style="width: 50%;">
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Tamanho</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item: ${itens}" class="linhaPedido">
+                    <td th:text="${item.produto.nome} ?: 'UNKNOWN'"></td>
+                    <td th:text="${item.quantidadeProduto} ?: 'UNKNOWN'"></td>
+                    <td th:text="${item.tamanho} ?: 'UNKNOWN'"></td>
+                    <td th:text="${item.precoProduto} ?: 'UNKNOWN'"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="botoes">
+        <button onclick="deletar()" type="button" class="btn btn-secondary">Cancelar</button>
+        <button onclick="verificarVazio()" type="button" class="btn btn-success">Finalizar o pedido</button>
+    </div>
+
+    <hr>
+
+    <h1>Cardápio</h1>
+    <div class="produto">
+        <h2>Pizzas</h2>
+        <div class="produto-card">
+            <div class="card" style="width: 18rem;" th:each="pizza: ${listaDePizzas}">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${pizza.nome}"></h5>
+                    <p class="card-text" th:text="${pizza.descricao}"></p>
+                    <p class="preco" th:text="${pizza.valor}">R$<span ></span></p>
+                    <a th:href="@{/selecionaProduto(id=${pizza.id})}" class="btn btn-primary">Selecionar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="produto">
+        <h2>Bebidas</h2>
+        <div class="produto-card">
+            <div class="card" style="width: 18rem;" th:each="bebida: ${listaDeBebidas}">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${bebida.nome}"></h5>
+                    <p class="preco" th:text="${bebida.valor}">R$<span ></span></p>
+                    <a th:href="@{/selecionaProduto(id=${bebida.id})}" class="btn btn-primary">Selecionar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href="https://www.flaticon.com/free-icons/shopping-cart" title="shopping cart icons">Shopping cart icons
+            created by Freepik - Flaticon</a>
+    </footer>
+
+    <script type="text/javascript" th:src="@{/js/cardapio.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

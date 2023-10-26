@@ -1,0 +1,59 @@
+table {
+    width: 50%;
+}
+
+.carrinho {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.carrinho img {
+    height: 30px;
+    width: 30px;
+}
+
+.carrinho div {
+    display: flex;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.produto {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.produto-card {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 auto;
+    row-gap: 20px;
+}
+
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+footer {
+    background-color: black; 
+    position: fixed; 
+    left: 0; 
+    bottom: 0; 
+    width: 100%; 
+    text-align: center;
+}
+
+footer a {
+    text-decoration: none; 
+    color: white;
+}

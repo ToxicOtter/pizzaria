@@ -48,12 +48,12 @@ public class ClienteController {
 
     @GetMapping("/selecionarItens")
     public ModelAndView listarClientes() {
-        ModelAndView mAv = new ModelAndView("cliente");
+        ModelAndView mAv = new ModelAndView("cardapio");
         mAv.addObject("listaDeClientes", clienteRepository.findAll());
         mAv.addObject("listaDePizzas", produtoRepository.findByTipo("Pizza"));
         mAv.addObject("listaDeBebidas", produtoRepository.findByTipo("Bebida"));
-        mAv.addObject("cliente", new Cliente());
-        mAv.addObject("produto", new Produto());
+        mAv.addObject("cliente", clienteLogado);
+        // mAv.addObject("produto", new Produto());
         mAv.addObject("itens", itens);
         return mAv;
     }
