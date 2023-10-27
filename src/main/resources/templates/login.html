@@ -1,11 +1,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Página de Alunos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/pizza-icon.ico}">
+    <title>Giuseppe's</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 
-<body>
-    <form th:action="@{/login}" method="post">
+<body onload="mostrarLogado()">
+    <!-- <form th:action="@{/login}" method="post">
         <input type="email" name="email" id="email">
         <input type="password" name="senha" id="senha">
         <input type="submit" value="Enviar">
@@ -20,7 +26,83 @@
         <input type="submit" value="Enviar">
     </form>
 
-    <p th:text="${respostaLogin}"></p>
+    <p th:text="${respostaLogin}"></p> -->
+
+    <nav class="navbar navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/pizza-logo.png}" width="30" height="30" class="d-inline-block align-top" alt="">
+            Pizzaria do Giuseppe
+        </a>
+    </nav>
+
+    <div class="container">
+        <div id="login">
+            <h2>Login</h2>
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="email">Endereço de e-mail</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Insira o e-mail">
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" name="senha" id="senha" class="form-control" placeholder="Insira a senha">
+                </div>
+                <div class="botoes">
+                    <input class="btn btn-success" type="submit" value="Enviar">
+                    <button onclick="trocar('cadastro')" type="button" class="btn btn-light">Cadastrar-se</button>
+                </div>
+            </form>
+        </div>
+        <div id="signup">
+            <h2>Cadastro</h2>
+            <form th:action="@{/signup}" method="post" th:object="${cliente}">
+                <div class="form-group">
+                    <label for="email">Endereço de e-mail</label>
+                    <input type="email" th:field="*{email}" name="email" id="email" class="form-control" placeholder="Insira o e-mail">
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="number" th:field="*{cpf}" name="cpf" id="cpf" class="form-control" placeholder="CPF">
+                </div>
+                <div class="form-group">
+                    <label for="nome">Nome completo</label>
+                    <input type="text" th:field="*{nome}" name="nome" id="nome" class="form-control" placeholder="Nome">
+                </div>
+                <div class="form-group">
+                    <label for="enderecoEntrega">Endereço para entrega</label>
+                    <input type="text" th:field="*{enderecoEntrega}" name="enderecoEntrega" id="enderecoEntrega" class="form-control" placeholder="Endereço completo">
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Endereço para entrega</label>
+                    <input type="number" th:field="*{telefone}" name="telefone" id="telefone" class="form-control" placeholder="Telefone">
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Senha</label>
+                    <input type="password" th:field="*{senha}" name="senha" id="senha" class="form-control" placeholder="Senha">
+                </div>
+                <div class="botoes">
+                    <input type="submit" value="Enviar" class="btn btn-success">
+                    <button onclick="trocar('login')" type="button" class="btn btn-light">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <a href="https://www.flaticon.com/free-icons/pizza" title="pizza icons">Pizza icons created by Freepik -
+            Flaticon</a>
+    </footer>
+
+    <script type="text/javascript" th:src="@{/js/login.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

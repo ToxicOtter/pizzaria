@@ -1,0 +1,25 @@
+footer {
+    background-color: black; 
+    position: fixed; 
+    left: 0; 
+    bottom: 0; 
+    width: 100%; 
+    text-align: center;
+}
+
+footer a {
+    text-decoration: none; 
+    color: white;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.botoes {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
