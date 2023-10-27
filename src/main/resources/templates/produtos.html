@@ -1,11 +1,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Produto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/pizza-icon.ico}">
+    <title>Giuseppe's</title>
+    <link rel="stylesheet" th:href="@{/css/produtos.css}">
 </head>
 
 <body onload="calcularValor()">
-    <table>
+    <nav class="navbar navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/pizza-logo.png}" width="30" height="30" class="d-inline-block align-top" alt="">
+            Pizzaria do Giuseppe
+        </a>
+        <div>
+            <span id="bem-vindo" class="navbar-text">
+                Bem vindo(a), <span id="nomeCliente" th:each="c : ${cliente}" th:text="${c.nome}"></span>
+            </span>
+            <a id="logar" class="btn btn-dark botao-logar" th:href="@{/autenticacao}">Login</a>
+        </div>
+    </nav>
+    <!--<table>
         <tbody>
             <tr>
                 <td th:text="${produto.nome}"></td>
@@ -42,8 +60,115 @@
                 </tr>
             </tbody>
         </table>
-    </form>
-    <script type="text/javascript" th:src="@{/produtos.js}"></script>
+    </form>-->
+
+    <!-- <form th:action="@{/salvarItem}" method="post">
+        <table class="table">
+            <thead class="table table-hover table-sm">
+                <tr>
+                    <td>Id</td>
+                    <td>Nome</td>
+                    <td>Descrição</td>
+                    <td>Valor</td>
+                    <td>Quantidade</td>
+                    <td>Tamanho</td>
+                    <td>Valor final</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr>
+                    <td><input type="text" name="id" id="id" th:value="${produto.id}" readonly></td>
+                    <td th:text="${produto.nome}"></td>
+                    <td th:text="${produto.descricao}"></td>
+                    <td><p>R$</p><span id="valorUnitario" th:text="${#numbers.formatDecimal(produto.valor, 0, 'COMMA', 2, 'POINT')}"></span></td>
+                    <td><input type="number" name="qtd" id="qtd" min="1" value="1"></td>
+                    <td><select id="tamanho" name="tamanho">
+                        <option value="8">8 pedaços (+10 reais)</option>
+                        <option value="6">6 pedaços (+5 reais)</option>
+                    </select></td>
+                    <td><input type="text" name="valorTotalUnitario" id="valorTotalUnitario" readonly></td>
+                    <td><input type="submit" value="Adicionar" class="btn btn-success"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form> -->
+
+    <div class="container">
+        <img th:src="${produto.url}" alt="" class="center">
+        <h1>Selecione sua <span id="tipoProduto" th:text="${produto.tipo}"></span></h1>
+        <form th:action="@{/salvarItem}" method="post">
+            <div class="form-group row">
+                <label for="id" class="col-sm-2 col-form-label">Id</label>
+                <div class="col-sm-10">
+                    <input type="text" name="id" id="id" th:value="${produto.id}" readonly
+                        class="form-control-plaintext">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="nomeProduto" class="col-sm-2 col-form-label">Produto</label>
+                <div class="col-sm-10">
+                    <p th:text="${produto.nome}" id="nomeProduto"></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="descProduto" class="col-sm-2 col-form-label">Descrição</label>
+                <div class="col-sm-10">
+                    <p th:text="${produto.descricao}" id="descProduto"></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="valorUnitario" class="col-sm-2 col-form-label">Valor Unitário</label>
+                <div class="col-sm-10">
+                    <p class="labelValorUnitario">R$<span id="valorUnitario"
+                            th:text="${#numbers.formatDecimal(produto.valor, 0, 'COMMA', 2, 'POINT')}"></span></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="qtd" class="col-sm-2 col-form-label">Quantidade</label>
+                <div class="col-sm-10">
+                    <input type="number" name="qtd" id="qtd" min="1" value="1" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="tamanho" class="col-sm-2 col-form-label">Tamanho</label>
+                <div class="col-sm-10">
+                    <select id="tamanho" name="tamanho">
+                        <!-- <option value="8">8 pedaços (+10 reais)</option>
+                        <option value="6">6 pedaços (+5 reais)</option> -->
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="valorTotalUnitario" class="col-sm-2 col-form-label">Valor total</label>
+                <div class="col-sm-10">
+                    <input type="text" name="valorTotalUnitario" id="valorTotalUnitario" readonly
+                        class="form-control-plaintext">
+                </div>
+            </div>
+
+            <div class="botoes">
+                <a class="btn btn-secondary" th:href="@{/selecionarItens}">Voltar</a>
+                <input type="submit" value="Adicionar" class="btn btn-success">
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <a href="https://www.flaticon.com/free-icons/pizza" title="pizza icons">Pizza icons created by Freepik -
+            Flaticon</a>
+    </footer>
+
+    <script type="text/javascript" th:src="@{/js/produtos.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

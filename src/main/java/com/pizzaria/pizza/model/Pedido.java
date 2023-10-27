@@ -42,6 +42,7 @@ public class Pedido {
         this.valor = valor;
         this.status = status;
         this.pagamento = pagamento;
+        this.endereco = endereco;
     }
 
     @PrePersist

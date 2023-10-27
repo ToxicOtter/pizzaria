@@ -49,7 +49,6 @@ public class ClienteController {
     @GetMapping("/selecionarItens")
     public ModelAndView listarClientes() {
         ModelAndView mAv = new ModelAndView("cardapio");
-        mAv.addObject("listaDeClientes", clienteRepository.findAll());
         mAv.addObject("listaDePizzas", produtoRepository.findByTipo("Pizza"));
         mAv.addObject("listaDeBebidas", produtoRepository.findByTipo("Bebida"));
         mAv.addObject("cliente", clienteLogado);
@@ -86,13 +85,12 @@ public class ClienteController {
 
     @RequestMapping("/selecionaProduto")
     public ModelAndView selecionarProduto(@RequestParam("id") int id) {
-        System.out.println("buscando o produto: " + id);
         Optional<Produto> produtoTemp = produtoRepository.findById(Integer.valueOf(id));
         produtoSelecionado = produtoTemp.get();
-        System.out.println("produto: " + produtoSelecionado.getNome());
 
         ModelAndView modelAndView = new ModelAndView("produtos");
         modelAndView.addObject("produto", produtoSelecionado);
+        modelAndView.addObject("cliente", clienteLogado);
         return modelAndView;
     }
 
