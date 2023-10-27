@@ -23,18 +23,18 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String email;
-    private int cpf;
+    private long cpf;
     private String nome;
     private String enderecoEntrega;
-    private int telefone;
+    private long telefone;
     private String senha;
     @OneToMany(mappedBy = "cliente")
     private List<PedidoClienteProduto> pedidoClienteProduto;
 
-    public Cliente(int id, String email, int cpf, String nome, String enderecoEntrega, int telefone){    
+    public Cliente(int id, String email, long cpf, String nome, String enderecoEntrega, long telefone){    
     }
 
-    public Cliente(int id, String email, int cpf, String nome, String enderecoEntrega, int telefone, String senha){    
+    public Cliente(int id, String email, long cpf, String nome, String enderecoEntrega, long telefone, String senha){    
         this.id = id;
         this.email = email;
         this.cpf = cpf;

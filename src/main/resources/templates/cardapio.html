@@ -18,6 +18,7 @@
         <div>
             <span id="bem-vindo" class="navbar-text">
                 Bem vindo(a), <span id="nomeCliente" th:each="c : ${cliente}" th:text="${c.nome}"></span>
+                <a id="sair" class="btn btn-dark botao-logar" th:href="@{/logout}">Sair</a>
             </span>
             <a id="logar" class="btn btn-dark botao-logar" th:href="@{/autenticacao}">Login</a>
         </div>

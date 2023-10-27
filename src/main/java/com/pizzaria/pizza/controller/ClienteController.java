@@ -41,6 +41,7 @@ public class ClienteController {
 
     @RequestMapping("/")
     public ModelAndView home() {
+        respostaLogin = null;
         ModelAndView mAv = new ModelAndView("home");
         mAv.addObject("cliente", clienteLogado);
         return mAv;
@@ -48,6 +49,7 @@ public class ClienteController {
 
     @GetMapping("/selecionarItens")
     public ModelAndView listarClientes() {
+        respostaLogin = null;
         ModelAndView mAv = new ModelAndView("cardapio");
         mAv.addObject("listaDePizzas", produtoRepository.findByTipo("Pizza"));
         mAv.addObject("listaDeBebidas", produtoRepository.findByTipo("Bebida"));
@@ -85,6 +87,7 @@ public class ClienteController {
 
     @RequestMapping("/selecionaProduto")
     public ModelAndView selecionarProduto(@RequestParam("id") int id) {
+        respostaLogin = null;
         Optional<Produto> produtoTemp = produtoRepository.findById(Integer.valueOf(id));
         produtoSelecionado = produtoTemp.get();
 
@@ -116,6 +119,7 @@ public class ClienteController {
 
     @RequestMapping("/finalizar")
     public ModelAndView finalizar() {
+        respostaLogin = null;
         float total = 0;
         for (PedidoClienteProduto item : itens) {
             total += item.getPrecoProduto();
@@ -148,7 +152,7 @@ public class ClienteController {
     }
 
     @RequestMapping("/login")
-    public String login(@RequestParam("email") String email, @RequestParam("senha") String senha) {
+    public String login(@RequestParam("emailLogin") String email, @RequestParam("senhaLogin") String senha) {
         Cliente clienteTemp = clienteRepository.findByEmail(email);
         if (clienteTemp == null) {
             respostaLogin = "Usuário ou senha incorretos";
@@ -175,5 +179,14 @@ public class ClienteController {
             respostaLogin = "Usuário já existe no sistema!";
             return "redirect:/autenticacao";
         }
+    }
+
+    @RequestMapping("/logout")
+    public String logout(){
+        clienteLogado = null;
+        pedidoRepository.delete(pedidoAtual);
+        pedidoAtual.setStatus("Finalizado");
+        itens = new ArrayList<>();
+        return "redirect:/";
     }
 }

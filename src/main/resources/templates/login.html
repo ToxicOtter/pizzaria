@@ -24,11 +24,16 @@
             <form th:action="@{/login}" method="post">
                 <div class="form-group">
                     <label for="email">Endereço de e-mail</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="Insira o e-mail">
+                    <input type="email" name="emailLogin" id="emailLogin" class="form-control"
+                        placeholder="Insira o e-mail" required>
                 </div>
                 <div class="form-group">
                     <label for="senha">Senha</label>
-                    <input type="password" name="senha" id="senha" class="form-control" placeholder="Insira a senha">
+                    <input type="password" name="senhaLogin" id="senhaLogin" class="form-control"
+                        placeholder="Insira a senha" required>
+                </div>
+                <div class="alert alert-danger" role="alert" th:each="res : ${respostaLogin}">
+                    <p th:text="${res}"></p>
                 </div>
                 <div class="botoes">
                     <input class="btn btn-success" type="submit" value="Enviar">
@@ -38,30 +43,40 @@
         </div>
         <div id="signup">
             <h2>Cadastro</h2>
-            <form th:action="@{/signup}" method="post" th:object="${cliente}">
+            <form id="signupForm" onsubmit="removeMascara()" th:action="@{/signup}" method="post"
+                th:object="${cliente}">
                 <div class="form-group">
                     <label for="email">Endereço de e-mail</label>
-                    <input type="email" th:field="*{email}" name="email" id="email" class="form-control" placeholder="Insira o e-mail">
+                    <input type="email" th:field="*{email}" name="email" id="email" class="form-control"
+                        placeholder="Insira o e-mail" required>
                 </div>
                 <div class="form-group">
                     <label for="cpf">CPF</label>
-                    <input type="number" th:field="*{cpf}" name="cpf" id="cpf" class="form-control" placeholder="CPF">
+                    <input type="text" th:field="*{cpf}" name="cpf" id="cpf" class="form-control" placeholder="CPF"
+                        oninput="mascaraCpf(this)" required>
                 </div>
                 <div class="form-group">
                     <label for="nome">Nome completo</label>
-                    <input type="text" th:field="*{nome}" name="nome" id="nome" class="form-control" placeholder="Nome">
+                    <input type="text" th:field="*{nome}" name="nome" id="nome" class="form-control" placeholder="Nome"
+                        required>
                 </div>
                 <div class="form-group">
                     <label for="enderecoEntrega">Endereço para entrega</label>
-                    <input type="text" th:field="*{enderecoEntrega}" name="enderecoEntrega" id="enderecoEntrega" class="form-control" placeholder="Endereço completo">
+                    <input type="text" th:field="*{enderecoEntrega}" name="enderecoEntrega" id="enderecoEntrega"
+                        class="form-control" placeholder="Endereço completo" required>
                 </div>
                 <div class="form-group">
-                    <label for="telefone">Endereço para entrega</label>
-                    <input type="number" th:field="*{telefone}" name="telefone" id="telefone" class="form-control" placeholder="Telefone">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" th:field="*{telefone}" name="telefone" id="telefone" class="form-control"
+                        placeholder="Telefone" onkeyup="lidarTelefone(event)" maxlength="15" required>
                 </div>
                 <div class="form-group">
                     <label for="telefone">Senha</label>
-                    <input type="password" th:field="*{senha}" name="senha" id="senha" class="form-control" placeholder="Senha">
+                    <input type="password" th:field="*{senha}" name="senha" id="senha" class="form-control"
+                        placeholder="Senha" required>
+                </div>
+                <div class="alert alert-danger" role="alert" th:each="res : ${respostaLogin}">
+                    <p th:text="${res}"></p>
                 </div>
                 <div class="botoes">
                     <input type="submit" value="Enviar" class="btn btn-success">
