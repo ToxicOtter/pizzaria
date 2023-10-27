@@ -184,8 +184,10 @@ public class ClienteController {
     @RequestMapping("/logout")
     public String logout(){
         clienteLogado = null;
-        pedidoRepository.delete(pedidoAtual);
-        pedidoAtual.setStatus("Finalizado");
+        if(pedidoAtual.getStatus().equals("Iniciado")){
+            pedidoRepository.delete(pedidoAtual);
+            pedidoAtual.setStatus("Finalizado");
+        }
         itens = new ArrayList<>();
         return "redirect:/";
     }
