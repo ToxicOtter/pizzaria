@@ -12,9 +12,9 @@
 
 <body onload="calcularValor()">
     <nav class="navbar navbar-dark bg-dark justify-content-between">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" th:href="@{/}">
             <img th:src="@{/images/pizza-logo.png}" width="30" height="30" class="d-inline-block align-top" alt="">
-            Pizzaria do Giuseppe
+            <span class="brand-title">Pizzaria do Giuseppe</span>
         </a>
         <div>
             <span id="bem-vindo" class="navbar-text">

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+
 table {
     width: 50%;
 }
@@ -67,4 +69,8 @@ h2 {
 
 #info-cliente {
     text-align: center;
+}
+
+.brand-title {
+    font-family: 'Agbalumo';
 }

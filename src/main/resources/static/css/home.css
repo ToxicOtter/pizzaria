@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+
 .c-imagem {
     height: 500px;
 }
@@ -24,4 +26,8 @@ footer a {
 
 .botao-logar {
     text-decoration: none;
+}
+
+.brand-title {
+    font-family: 'Agbalumo';
 }

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+
 footer {
     background-color: black;
     position: fixed;
@@ -55,4 +57,8 @@ p {
 
 h1 {
     text-align: center;
+}
+
+.brand-title {
+    font-family: 'Agbalumo';
 }
