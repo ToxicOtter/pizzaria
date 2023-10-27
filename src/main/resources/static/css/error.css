@@ -1,0 +1,48 @@
+.pics-in-a-row {
+    display: flex;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+.img1 {
+    flex: 1.2;
+}
+
+.img2 {
+    flex: 1.2;
+}
+
+.container {
+    background: white;
+    margin: 0 auto;
+    padding: 5%;
+    width: 75%;
+}
+
+.pics-in-a-row {
+    margin: 25px 0;
+}
+
+.pics-in-a-row>div:not(:last-child) {
+    margin-right: 2%;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.botao {
+    width: 100%; 
+    text-align: center; 
+    margin-top: 20px;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
