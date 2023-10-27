@@ -38,12 +38,15 @@ public class ClienteController {
     private Produto produtoSelecionado;
     private Cliente clienteLogado;
     private String respostaLogin;
+    private String situacaoPedido;
 
     @RequestMapping("/")
     public ModelAndView home() {
         respostaLogin = null;
         ModelAndView mAv = new ModelAndView("home");
         mAv.addObject("cliente", clienteLogado);
+        mAv.addObject("resPedido", situacaoPedido);
+        situacaoPedido = null;
         return mAv;
     }
 
@@ -114,6 +117,7 @@ public class ClienteController {
         pedidoRepository.delete(pedidoAtual);
         pedidoAtual.setStatus("Finalizado");
         itens = new ArrayList<>();
+        situacaoPedido = "Pedido cancelado com sucesso!";
         return "redirect:/";
     }
 
@@ -140,6 +144,7 @@ public class ClienteController {
         pedidoAtual.setEndereco(endereco);
         pedidoRepository.save(pedidoAtual);
         itens = new ArrayList<>();
+        situacaoPedido = "Pedido finalizado com sucesso!";
         return "redirect:/";
     }
 

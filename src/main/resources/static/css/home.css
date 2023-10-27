@@ -8,6 +8,7 @@
     width: 100%; 
     text-align: center; 
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 footer {
@@ -30,4 +31,13 @@ footer a {
 
 .brand-title {
     font-family: 'Agbalumo';
+}
+
+.alert {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.alert p {
+    text-align: center;
 }
